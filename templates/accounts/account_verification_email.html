@@ -1,0 +1,14 @@
+{% autoescape off %}
+    {% csrf_token %}
+    Hi {{ user.first_name }},
+    
+    We're excited to have you. 
+
+    Please click on the link below to verify your registration :-
+    http://{{domain}}{% url 'accounts:activate' uidb64=uid token=token %}
+
+    Discard if it's not you or already verified.
+
+    Regards
+    Team GadgetZone 
+{% endautoescape %}

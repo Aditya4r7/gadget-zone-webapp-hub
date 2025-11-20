@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Edit Profile</title>
+{% endblock title %}
+
+{% block content %}
+<section class="section-content padding-y bg">
+
+<div class="container">
+	<div class="row">
+		<aside class="col-md-3">
+			{% include 'includes/dashboard_sidebar.html' %}
+		</aside>
+		<main class="col-md-9">
+
+			{% include 'includes/alerts.html' %}
+
+			<article class="card">
+				<header class="card-header">
+					<strong class="d-inline-block mr-3">Edit Profile</strong>
+				</header>
+				<div class="card-body">
+
+					<div class="row">
+						<div class="col-md-4" style="text-align: center;">
+							{# yaha safe check lagaya hai #}
+							{% if user_profile.profile_picture %}
+								<img src="{{ user_profile.profile_picture.url }}"
+								     alt="Profile Picture"
+								     width="120" height="120"
+								     style="border-radius:50%; object-fit:cover;">
+							{% else %}
+								<img src="{% static 'images/default_profile.jpg' %}"
+								     alt="Default Profile Picture"
+								     width="120" height="120"
+								     style="border-radius:50%; object-fit:cover;">
+							{% endif %}
+							<p class="mt-2 mb-0"><strong>{{ user.full_name }}</strong></p>
+							<p class="mb-0">{{ user.email }}</p>
+						</div>
+
+						<div class="col-md-8">
+							<form action="" method="POST" enctype="multipart/form-data">
+								{% csrf_token %}
+
+								<h5>Account Info</h5>
+								<div class="form-row">
+									<div class="form-group col-md-6">
+										<label>First Name</label>
+										{{ user_form.first_name }}
+									</div>
+									<div class="form-group col-md-6">
+										<label>Last Name</label>
+										{{ user_form.last_name }}
+									</div>
+								</div>
+
+								<div class="form-row">
+									<div class="form-group col-md-6">
+										<label>Phone Number</label>
+										{{ user_form.phone_number }}
+									</div>
+									<div class="form-group col-md-6">
+										<label>Email</label>
+										{{ user_form.email }}
+									</div>
+								</div>
+
+								<hr>
+
+								<h5>Profile Info</h5>
+								<div class="form-row">
+									<div class="form-group col-md-6">
+										<label>Address Line 1</label>
+										{{ user_profile_form.address_line_1 }}
+									</div>
+									<div class="form-group col-md-6">
+										<label>Address Line 2</label>
+										{{ user_profile_form.address_line_2 }}
+									</div>
+								</div>
+
+								<div class="form-row">
+									<div class="form-group col-md-4">
+										<label>City</label>
+										{{ user_profile_form.city }}
+									</div>
+									<div class="form-group col-md-4">
+										<label>State</label>
+										{{ user_profile_form.state }}
+									</div>
+									<div class="form-group col-md-4">
+										<label>Country</label>
+										{{ user_profile_form.country }}
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label>Profile Picture</label><br>
+									{{ user_profile_form.profile_picture }}
+								</div>
+
+								<button class="btn btn-primary" type="submit">Save Changes</button>
+							</form>
+						</div>
+					</div>
+
+				</div>
+			</article>
+
+		</main>
+	</div>
+</div>
+
+</section>
+{% endblock content %}
